@@ -1,0 +1,7 @@
+{
+    "_comment": "This file stores login timestamps and usernames. Format: yyyy-mm-dd hour-min-sec",
+    "2024-12-30 16:04:27": {
+        "username": "testuser1",
+        "time": "2024-12-30 16:04:27"
+    }
+}
