@@ -130,15 +130,6 @@ class SignUp(ctk.CTkToplevel):
                 "password" : self.entries["Confirm Password"].get(),
                 "name": self.entries["Full Name"].get().strip()
                 }
-
-        """if not all(data.values()):
-            self.show_error("All fields are required!")
-            return
-
-        if data["Create Password"] != data["Confirm Password"]:
-            self.show_error("Passwords do not match!")
-            return"""
-        
         send_sign_up_data(data = data)
         self.close_window()
         return None
