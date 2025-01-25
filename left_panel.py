@@ -10,7 +10,7 @@ class LeftPanel:
 
         # Add navigation dropdowns
         options = {
-            "Tenants": ["Add attribute", "Manage Tenants"],
+            "Tenants": ["Add attribute", "Delete attribute"],
             "Employee": ["Add Employee", "View Employees", "Remove Employee"],
             "Expenses": ["Add Expense", "View Expenses", "Generate Report"],
             "Notes": ["Add Note", "View Notes", "Delete Note"],

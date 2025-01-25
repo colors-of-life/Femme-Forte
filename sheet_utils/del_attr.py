@@ -10,6 +10,8 @@ class DelAttr:
         self.win.geometry("300x200+850+400")
         self.win.grab_set()
 
+        self.new_sheet = sheet
+
         self.f_1 = ctk.CTkFrame(self.win)
         self.f_1.pack(fill = "both", expand =True, anchor = "center")
 
@@ -32,32 +34,37 @@ class DelAttr:
         self.btn_2 = ctk.CTkButton(self.f_1, text= "Delete", command= lambda: self.get_attr(self.entry_1), width=50)
         self.btn_2.pack(side = "right", padx = (0, 60), pady = (0, 0))
  
-        self.win.wait_window()
-
-        if self.flag == 1:
-            new_sheet = sheet
+    def get_attr(self, entry: ctk.CTkEntry)-> None:
+        if entry.get() == "":
+            self.entry_1.insert(0, "Must enter an attribute")
+            self.entry_1.configure(text_color = "red")
+            self.entry_1.after(500, lambda: [self.entry_1.delete(0, 'end'), self.entry_1.configure(text_color = "white")])
+            return None
+        
+        else:
+            self.head = entry.get()
             with open("./data\\headers\\headers.json", 'r') as f:
                 data = json.load(f)
-                count = 0
+                search_flag = 0
                 for idx, head in enumerate(data["headers"]):
                     if head == self.head:
                         data["headers"].remove(head)
-                        break                
-            with open("./data\\headers\\headers.json", 'w') as f: 
-                json.dump(data, f, indent=4)
-            try:
-                new_sheet.delete_column(idx=idx)
-            except Exception as e:
-                pass
-        
+                        search_flag = 1
+                        break
 
-    def get_attr(self, entry: ctk.CTkEntry)-> str:
-        if entry.get() == "":
-            self.entry_1.configure(placeholder_text="Must enter a attribute", placeholder_text_color = "red")
-            self.entry_1.after(500, lambda: self.entry_1.delete(0, 'end'))
-            return None
-        else:
-            self.head = entry.get()
-            self.flag = 1
-            self.win.destroy()
-            return self.head
+            if search_flag == 1:                
+                with open("./data\\headers\\headers.json", 'w') as f: 
+                    json.dump(data, f, indent=4)
+                try:
+                    self.new_sheet.delete_column(idx=idx)
+                except Exception as e:
+                    pass
+                self.win.destroy()
+
+            else:
+                self.entry_1.delete(0, 'end')
+                self.entry_1.insert(0, "No such attribute found")
+                self.entry_1.configure(text_color = "yellow")
+                self.entry_1.after(500, lambda: [self.entry_1.delete(0, 'end'), self.entry_1.configure(text_color = "white")])
+                return
+
