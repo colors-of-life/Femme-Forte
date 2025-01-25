@@ -1,5 +1,5 @@
 import customtkinter as ctk
-from sheet_utils import add_attr
+from sheet_utils import add_attr, del_attr
 
 class LeftPanel:
     def __init__(self, parent, right_panel):
@@ -36,14 +36,5 @@ class LeftPanel:
         if category == "Tenants" and selection == "Add attribute":
             add_attr.AddAttr(sheet= self.right_panel.sheet)
             
-        elif category == "Tenants" and selection == "Manage Tenants":
-            self.add_sample_row("v")
-
-    def add_sample_row(self, passas):
-        """Add a sample row to the tksheet in the right panel."""
-        if self.right_panel.sheet and passas == "h":
-            indx = 1
-            self.right_panel.sheet.insert_column(column = ["name"], header = True)
-            print("Row added to tksheet.")
-        elif self.right_panel.sheet and passas == "v":
-            self.right_panel.sheet.insert_row(row = ["test", "test", "test", "test", "test", "test", "test", ])
+        elif category == "Tenants" and selection == "Delete attribute":
+            del_attr.DelAttr(sheet= self.right_panel.sheet)
