@@ -36,19 +36,25 @@ class DelAttr:
 
         if self.flag == 1:
             new_sheet = sheet
+
             with open("./data\\headers\\headers.json", 'r') as f:
                 data = json.load(f)
-                count = 0
-                for idx, head in enumerate(data["headers"]):
-                    if head == self.head:
-                        data["headers"].remove(head)
-                        break                
-            with open("./data\\headers\\headers.json", 'w') as f: 
-                json.dump(data, f, indent=4)
-            try:
-                new_sheet.delete_column(idx=idx)
-            except Exception as e:
-                pass
+                
+            search_flag = 0
+            for idx, head in enumerate(data["headers"]):
+                if head == self.head:
+                    data["headers"].remove(head)
+                    search_flag = 1
+                    break
+            if search_flag == 1:                
+                with open("./data\\headers\\headers.json", 'w') as f: 
+                    json.dump(data, f, indent=4)
+                try:
+                    new_sheet.delete_column(idx=idx)
+                except Exception as e:
+                    pass
+            else:
+                print("head not found")
         
 
     def get_attr(self, entry: ctk.CTkEntry)-> str:
