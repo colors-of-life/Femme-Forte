@@ -1,9 +1,9 @@
 {
     "headers": [
-        "name",
-        "age",
-        "uadi",
-        "phone",
-        "Email"
+        "SI NO",
+        "Name",
+        "Phone",
+        "UADI",
+        "Guardian"
     ]
 }
